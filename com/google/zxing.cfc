@@ -14,19 +14,18 @@ component {
     ];
 
     function init () {
-
         return this;
     }
 
     function createQRBinary (
         required string content,
-                 number size = 200,
-                 number margin = 10,
-                 string fgColorHex = "00000",
-                 string bgColorHex = "FFFFFF",
-                 string errorCorrection="L"
+                 number size            = 200,
+                 number margin          = 10,
+                 string fgColorHex      = "00000",
+                 string bgColorHex      = "FFFFFF",
+                 string errorCorrection = "L"
     ) localmode= true {
-        image = createQRImage (argumentcollection = arguments);
+        image = createQRImage(argumentcollection = arguments);
 
         byte = createQRByteArray(argumentcollection = arguments);
 
@@ -37,37 +36,16 @@ component {
         return base64String;
     }
 
-    // use expandPath() for path
-    function createQRImage(path
-        reqquired string ,
+    
+    function createQRByteArray(
         required string content,
                  number size = 200,
                  number margin = 10,
                  string fgColorHex = "00000",
                  string bgColorHex = "FFFFFF",
                  string errorCorrection="L"
-
     ) localmode= true {
-
-        image = createQRImage (argumentcollection = arguments);
-
-        // Define the output file
-        outputFile = createObject("java", "java.io.File").init(arguments.path);
-
-        // Write the image to a file
-        ImageIO.write(image, "PNG", outputFile);
-    }
-    
-    function createQRByteArray(
-        reqquired string content,
-                 number size = 200,
-                 number margin = 10,
-                 string fgColorHex = "00000",
-                 string bgColorHex = "FFFFFF",
-                 string errorCorrection="L"
-
-    ) localmode= true {
-        image = createQRImage (argumentcollection = arguments);
+        image = createQRImage(argumentcollection = arguments);
 
         // Create a ByteArrayOutputStream
         baos = createObject("java", "java.io.ByteArrayOutputStream").init();
@@ -84,12 +62,12 @@ component {
     
     private function createQRImage (
         required string content,
-                 number size            = 200,
-                 number margin          = 10,
-                 string fgColorHex      = "00000",
-                 string bgColorHex      = "FFFFFF",
-                 string errorCorrection = "L",
-                 string logoPath        = ""
+        required number size,
+        required number margin,
+        required string fgColorHex,
+        required string bgColorHex,
+        required string errorCorrection,
+        required string logoPath
     ) localmode= true {
         Paths = createObject("java", "java.nio.file.Paths" ); //dump(Paths);
 
@@ -119,14 +97,14 @@ component {
 
         // Create a buffered image to draw the QR Code
         BufferedImage = createObject("java", "java.awt.image.BufferedImage");
-        qrImage = createObject("java", "java.awt.image.BufferedImage").init(
+        qrImage       = createObject("java", "java.awt.image.BufferedImage").init(
             bitMatrix.getWidth(), 
             bitMatrix.getHeight(), 
             BufferedImage.TYPE_INT_RGB
         );
 
         // Convert hex to RGB
-       fgColor = createObject("java", "java.awt.Color").init(
+        fgColor = createObject("java", "java.awt.Color").init(
             javaCast("int", inputBaseN(arguments.fgColorHex, 16))
         );
         bgColor = createObject("java", "java.awt.Color").init(
