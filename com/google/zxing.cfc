@@ -23,7 +23,8 @@ component {
                  number margin          = 10,
                  string fgColorHex      = "00000",
                  string bgColorHex      = "FFFFFF",
-                 string errorCorrection = "L"
+                 string errorCorrection = "L",
+                 string logoPath        = ""
     ) localmode= true {
         image = createQRImage(argumentcollection = arguments);
 
