@@ -53,7 +53,6 @@ This utility uses ZXing ("zebra crossing") Java library [https://github.com/zxin
     )
 </cfscript>
 
-
 <cfheader name="Content-Disposition" value='inline;filename="#url.content#"'>
 <cfcontent type="image/png" variable="#base64String#">
-```  
+```
